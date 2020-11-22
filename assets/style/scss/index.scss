@@ -1,0 +1,295 @@
+main{
+    height: 100vh;
+    background-image: url(../../img/index/Nukeradiation-background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    #main-grid{
+        margin-left: 10%;
+        margin-right: 10%;
+        padding-top: 30vh;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-column-gap: 2%;
+        align-items: center;
+
+        @media screen and (max-width: 1140px){
+            display: block;
+            padding-top: 20vh;
+        }
+
+            #main-img{
+                grid-column-start: 1;
+                grid-column-end: span 6;
+
+                img{
+                    display: block;
+                    max-width: 100%;
+                    min-width: 80%;
+                    padding-right: 5%;
+                    margin-left: auto;
+                    margin-right: auto;
+
+                    @media screen and (max-width: 1140px){
+                        padding: 0px;
+                    }
+                }
+            }
+
+            #main-infos{
+                grid-column-start: 7;
+                grid-column-end: span 6;
+
+                h1{
+                    color: white;
+                    font-size: 3em;
+                    font-weight: 700;
+
+                    @media screen and (max-width: 1140px){
+                        font-size: 2em;
+                    }
+                }
+
+                h2{
+                    color: #E8E8E8;
+                    font-size: 1.8em;
+                    font-weight: 600;
+
+                    @media screen and (max-width: 1140px){
+                        font-size: 1em;
+                    }
+                }
+            }
+
+            #main-buttons{
+                margin-top: 30px;
+
+                a{
+                    border-width: 3px;
+                }
+
+                @media screen and (max-width: 1140px){
+                    #download{
+                        display: none;
+                    }
+                }
+            }
+    }
+
+    #more{
+        position: absolute;
+        bottom: 25px; 
+        left: 50%;
+        transform: translate(-50%, -50%);
+            p{
+                text-align: center;
+                font-weight: 500;
+                margin: 0px;
+
+                a{
+                    color: white;
+                }
+
+                @media screen and (max-width: 1140px){
+                    font-size: 0.9em;
+                }
+
+            }
+
+            #arrow{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+
+                @media screen and (max-width: 1140px){
+                    width: 20px;
+                }
+            }
+    }
+}
+
+#intro{
+    background-color: #2C3E50;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    h3{
+        color: white;
+        font-weight: 600;
+
+        @media screen and (max-width: 1140px){
+            font-size: 1.5em;
+        }
+    }
+
+    p{
+        font-weight: 500;
+        color: #E8E8E8;
+        font-size: 1.2em;
+        text-align: justify;
+        margin-top: 20px;
+        margin-bottom: 0;
+
+        @media screen and (max-width: 1140px){
+            font-size: 1em;
+            line-height: 28px;
+        }
+    }
+}
+
+#projects{
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    h3{
+        margin-bottom: 40px;
+        color: #2B3D51;
+        font-weight: 600;
+
+        @media screen and (max-width: 1140px){
+            font-size: 1.5em;
+        }
+    }
+    #projects-buttons{
+        display: flex;
+        justify-content: space-around;
+
+        @media screen and (max-width: 1140px){
+            display: block;
+        }
+
+        .projects-cards{
+            img{
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+
+                @media screen and (max-width: 1440px){
+                    width: 225px;
+                }
+
+                @media screen and (max-width: 1140px){
+                    width: 200px;
+                }
+            }
+
+            h4{
+                text-align: center;
+                font-weight: 500;
+
+                @media screen and (max-width: 1140px){
+                    font-size: 1.2em;
+                }
+            }
+
+            @media screen and (max-width: 1140px){
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+#join{
+    background-color: #2C3E50;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    h3{
+        margin-bottom: 40px;
+        color: white;
+        font-weight: 600;
+
+        @media screen and (max-width: 1140px){
+            font-size: 1.5em;
+        }
+    }
+
+    #join-grid{
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-column-gap: 2%;
+        align-items: center;
+
+        @media screen and (max-width: 1140px){
+            display: block;
+        }
+
+        #join-img{
+            grid-column-start: 1;
+            grid-column-end: span 5;
+
+            img{
+                display: block;
+                max-width: 100%;
+                min-width: 80%;
+                padding-right: 5%;
+                margin-left: auto;
+                margin-right: auto;
+
+                @media screen and (max-width: 1140px){
+                    display: none;
+                }
+            }
+        }
+
+        #join-infos{
+            grid-column-start: 6;
+            grid-column-end: span 7;
+
+            h4{
+                color: white;
+                font-weight: 600;
+
+                @media screen and (max-width: 1140px){
+                    font-size: 1.2em;
+                    text-align: justify;
+                }
+            }
+
+            p{
+                color: #E8E8E8;
+                font-size: 1.3em;
+                font-weight: 500;
+
+                @media screen and (max-width: 1140px){
+                    font-size: 1em;
+                    text-align: justify;
+                }
+            }
+
+            #join-button{
+                display: flex;
+                justify-content: center;
+
+                a{  
+                    font-size: 1.2em;
+
+                    @media screen and (max-width: 1140px){
+                        font-size: 1em;
+                    }
+                }
+            }
+        }
+    }
+
+    h5{
+        text-align: center;
+        color: #E8E8E8;
+        font-size: 0.8em;
+
+        a{
+            color: white;
+        }
+    }
+}
+
+/* Bootstrap / Nav / Footer */
+@import "config";
+@import "navbar";
+@import "footer";

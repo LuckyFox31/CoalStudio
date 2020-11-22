@@ -1,0 +1,167 @@
+#head{
+    background-color: #2C3E50;
+    margin-top: 48px;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 40px;
+    padding-bottom: 40px;
+
+    #head-grid{
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-column-gap: 2%;
+
+        @media screen and (max-width: 1140px){
+            display: block;
+        }
+
+        #head-title{
+            grid-column-start: 1;
+            grid-column-end: span 6;
+
+            h1{
+                color: white;
+                font-weight: 700;
+                font-size: 1.8em;
+
+                @media screen and (max-width: 1140px){
+                    font-size: 1.5em;
+                }
+            }
+        }
+
+        #head-button-coalstudio{
+            grid-column-start: -3;
+            grid-column-end: 12;
+        }
+
+        #head-infos{
+            grid-column-start: 1;
+            grid-column-end: span 7;
+            margin-top: 10px;
+
+            @media screen and (max-width: 1140px){
+                display: none;
+            }
+
+            h2{
+                display: inline;
+                color: white;
+                font-weight: 600;
+                font-size: 1.5em;
+
+                @media screen and (max-width: 1140px){
+                    font-size: 1.2em;
+                }
+            }
+
+            p{
+                display: inline;
+                position: relative;
+                bottom: 2px;
+                color: #E8E8E8;
+                margin-left: 20px;
+            }
+        }
+
+        #head-button-coalstudio{
+            @media screen and (max-width: 1140px){
+                display: inline;
+                margin-right: 10px;
+            }
+        }
+
+        #head-button-community{
+            @media screen and (max-width: 1140px){
+                display: inline;
+            }
+        }
+
+        a{
+            border-width: 3px;
+
+            @media screen and (max-width: 1140px){
+                font-size: 0.8em;
+            }
+        }
+    }
+}
+
+#carousel{
+    @media screen and (max-width: 1140px){
+        display: none;
+    }
+
+    #carousel-title{
+        padding-left: 5vw;
+        padding-top: 40px;
+        position: absolute;
+        z-index: 1;
+
+        color: white;
+        font-weight: 600;
+    }
+
+    .carousel-infos{
+        position: absolute;
+        z-index: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .carousel-buttons{
+            display: flex;
+            justify-content: center;
+
+            a{
+                border-width: 3px;
+            }
+        }
+    }
+}
+
+#games{
+    #games-grid{
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-column-gap: 5%;
+        margin-top: 60px;
+        margin-left: 5vw;
+        margin-right: 5vw;
+
+        @media screen and (max-width: 1140px){
+            display: block;
+        }
+
+        .games-card-one{
+            margin-bottom: 60px;
+            grid-column-start: 3;
+            grid-column-end: span 4;
+        }
+
+        .games-card-two{
+            margin-bottom: 60px;
+            grid-column-start: -7;
+            grid-column-end: span 4;
+        }
+
+        .card{
+            .games-card-buttons{
+                margin-top: 30px;
+                display: flex;
+                justify-content: center;
+
+                @media screen and (max-width: 1140px){
+                    #download{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Bootstrap / Nav / Footer */
+@import "config";
+@import "navbar";
+@import "footer";
