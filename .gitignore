@@ -1,2 +1,6 @@
 node_modules
 assets/games
+assets/.DS_Store
+assets/img/.DS_Store
+assets/img/games/.DS_Store
+.DS_Store
