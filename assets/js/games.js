@@ -1,33 +1,67 @@
-if(navigator.appVersion.indexOf("Mac") != -1){
+const games = [
+    {
+        name: "skylife",
+        extension: "zip",
+        windowsVersion: true,
+        macVersion: true
+    },
+    {
+        name: "nukeradiation",
+        extension: undefined,
+        windowsVersion: true,
+        macVersion: false
+    },
+    {
+        name: "thefinder",
+        extension: undefined,
+        windowsVersion: true,
+        macVersion: false
+    },
+    {
+        name: "townDawn",
+        extension: undefined,
+        windowsVersion: true,
+        macVersion: false
+    },
+    {
+        name: "buldo",
+        extension: undefined,
+        windowsVersion: true,
+        macVersion: false
+    }
 
-    const games = [
-        {
-            name: "skylife",
-            extension: "zip",
-            macVersion: true
-        },
-        {
-            name: "nukeradiation",
-            extension: undefined,
-            macVersion: false
-        },
-        {
-            name: "thefinder",
-            extension: undefined,
-            macVersion: false
-        },
-        {
-            name: "townDawn",
-            extension: undefined,
-            macVersion: false
-        },
-        {
-            name: "buldo",
-            extension: undefined,
-            macVersion: false
-        }
+];
+
+const spanOs = document.querySelectorAll(".os-icons");
+
+for (let index = 0; index < games.length; index++) {
+
+    if (games[index].windowsVersion) {
+        setWindows(index);
+    }
+    if (games[index].macVersion) {
+        setMac(index);
+    }
     
-    ];
+}
+
+function setWindows(i) {
+    let windowsIcon = document.createElement("img");
+    windowsIcon.src = "assets/img/games/os-icons/windows.svg";
+    windowsIcon.alt = "Windows Icon";
+    windowsIcon.width = "20";
+    spanOs[i].append(windowsIcon);
+}
+
+function setMac(i) {
+    let macIcon = document.createElement("img");
+    macIcon.src = "assets/img/games/os-icons/macos.svg";
+    macIcon.alt = "MacOS Icon";
+    macIcon.width = "20";
+    spanOs[i].append(macIcon);
+}
+
+if(navigator.appVersion.indexOf("Mac") != -1){
 
     const buttonsCarroussel = document.querySelectorAll("#download")
     const buttonsCard = document.querySelectorAll("#download-card");
