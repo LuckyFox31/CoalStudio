@@ -1,7 +1,7 @@
 const games = [
     {
         name: "skylife",
-        extension: "zip",
+        extension: "dmg",
         windowsVersion: true,
         macVersion: true
     },

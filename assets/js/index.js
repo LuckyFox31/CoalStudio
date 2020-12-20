@@ -1,5 +1,5 @@
 const game = "skylife";
-const extension = "zip";
+const extension = "dmg";
 
 const button = document.querySelector("#download");
 
