@@ -1,85 +1,42 @@
-const games = [
-    {
-        name: "skylife",
-        extension: "dmg",
-        windowsVersion: true,
-        macVersion: true
-    },
-    {
-        name: "nukeradiation",
-        extension: undefined,
-        windowsVersion: true,
-        macVersion: false
-    },
-    {
-        name: "thefinder",
-        extension: undefined,
-        windowsVersion: true,
-        macVersion: false
-    },
-    {
-        name: "townDawn",
-        extension: undefined,
-        windowsVersion: true,
-        macVersion: false
-    },
-    {
-        name: "buldo",
-        extension: undefined,
-        windowsVersion: true,
-        macVersion: false
-    }
+import {list} from "./list.js";
 
-];
+const os = platform.os.family;
+const buttonsCarroussel = document.querySelectorAll("#download");
+const buttonsCard = document.querySelectorAll("#download-card");
+const osIcons = document.querySelectorAll(".os-icons");
 
-const spanOs = document.querySelectorAll(".os-icons");
-
-for (let index = 0; index < games.length; index++) {
-
-    if (games[index].windowsVersion) {
+for (let index = 0; index < list.length; index++) {
+    if(list[index].system.windows){
         setWindows(index);
+        buttonsCard[index].href = `assets/games/${list[index].name}/windows/${list[index].name}.${list[index].extension.windows}`;
     }
-    if (games[index].macVersion) {
+    if(list[index].system.mac){
         setMac(index);
+        if (os == "OS X") {
+            buttonsCard[index].href = `assets/games/${list[index].name}/macos/${list[index].name}.${list[index].extension.mac}`;
+        }
     }
-    
+    if (list[index].inCarroussel) {
+        if (os == "OS X" && list[index].system.mac) {
+            buttonsCarroussel[index].href = `assets/games/${list[index].name}/macos/${list[index].name}.${list[index].extension.mac}`;
+        } else {
+            buttonsCarroussel[index].href = `assets/games/${list[index].name}/windows/${list[index].name}.${list[index].extension.windows}`;
+        }
+    }
 }
 
-function setWindows(i) {
+function setWindows(index){
     let windowsIcon = document.createElement("img");
     windowsIcon.src = "assets/img/games/os-icons/windows.svg";
     windowsIcon.alt = "Windows Icon";
     windowsIcon.width = "20";
-    spanOs[i].append(windowsIcon);
+    osIcons[index].append(windowsIcon);
 }
 
-function setMac(i) {
+function setMac(index) {
     let macIcon = document.createElement("img");
     macIcon.src = "assets/img/games/os-icons/macos.svg";
     macIcon.alt = "MacOS Icon";
     macIcon.width = "20";
-    spanOs[i].append(macIcon);
-}
-
-if(navigator.appVersion.indexOf("Mac") != -1){
-
-    const buttonsCarroussel = document.querySelectorAll("#download")
-    const buttonsCard = document.querySelectorAll("#download-card");
-
-    function macGames(){
-        for (let i = 0; i < 3; i++) {
-            if(games[i].macVersion){
-                buttonsCarroussel[i].href = `assets/games/${games[i].name}/macos/${games[i].name}.${games[i].extension}`;
-            }
-        }
-
-        for (let index = 0; index < games.length; index++) {
-            if(games[index].macVersion){
-                buttonsCard[index].href = `assets/games/${games[index].name}/macos/${games[index].name}.${games[index].extension}`;
-            }
-        }
-    }
-
-    macGames();
-
+    osIcons[index].append(macIcon);
 }

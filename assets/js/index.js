@@ -3,6 +3,7 @@ const extension = "dmg";
 
 const button = document.querySelector("#download");
 
-if(navigator.appVersion.indexOf("Mac") != -1){
+const os = platform.os.family;
+if (os == "OS X") {
     button.href = `assets/games/skylife/macos/${game}.${extension}`;
 }
