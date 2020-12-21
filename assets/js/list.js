@@ -69,7 +69,7 @@ export const list = [
             mac: false
         },
         extension: {
-            windows: "rar",
+            windows: "zip",
             mac: undefined
         },
         inCarroussel: false
