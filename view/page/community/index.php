@@ -20,7 +20,9 @@ if(isset($_POST['pseudo']) AND isset($_POST['password']) AND !empty($_POST['pseu
     $fetchUser = $table->query("user", "pseudo", $pseudo);
     if($fetchUser == 1) {
 
+        // Création d'un cookie.
         $cookie->getCookie('test', time()+3600*24*365);
+        header("Location: ");
     } else {
 
         echo "Non";
@@ -29,7 +31,7 @@ if(isset($_POST['pseudo']) AND isset($_POST['password']) AND !empty($_POST['pseu
 ?>
 
 <!-- 
-    HTML Front
+    HTML | CSS | JS
 -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -37,7 +39,7 @@ if(isset($_POST['pseudo']) AND isset($_POST['password']) AND !empty($_POST['pseu
     <title>Community</title>
 </head>
 <body>
-    <form method="post">
+    <form method="post" action="">
         <label>Votre pseudo : 
             <input type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo" >
         </label>

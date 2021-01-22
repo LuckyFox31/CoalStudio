@@ -11,7 +11,7 @@ class Cookie {
         $this->cookie = $cookie_name;
     }
 
-    public function getCookie($value = '', $option = []) {
+    public function getCookie($value, $option = []) {
         setcookie($this->cookie, $value, $option);
     }
 

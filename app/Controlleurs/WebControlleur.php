@@ -8,12 +8,31 @@ namespace App\Controlleurs;
 class WebControlleur {
 
     /**
+     * redirect function
+     *
+     * @return void
+     */
+    private function redirect() {
+        $chemain = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+        $redirection = substr($chemain, -1);
+
+        if($_GET['url'] != "/") {
+            if($redirection == "/") {
+                $header = substr("http://" . $chemain, 0, -1);
+                header("Location: " . $header);
+            }
+        }
+        
+    }
+
+    /**
      * index function
      *
      * @return include
      */
     public function index() {
 
+        $this->redirect();
         return include ROOT . 'view/php/index.php';
     }
 
@@ -24,6 +43,7 @@ class WebControlleur {
      */
     public function games() {
 
+        $this->redirect();
         return include ROOT . 'view/php/games.php';
     }
 
@@ -34,6 +54,7 @@ class WebControlleur {
      */
     public function community() {
 
+        $this->redirect();
         /**
          * Verification de l'existance du Cookie de connexion, puis inclusion du fichier corespondant.
          */
@@ -47,4 +68,5 @@ class WebControlleur {
 
        
     }
+    
 }
