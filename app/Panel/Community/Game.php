@@ -12,8 +12,10 @@ class Game {
     public $game_credits;
     public $game_imgs;
     public $game_file;
+    public $game_yt;
 
     public $counter;
+    public $error = "";
 
     /**
      * Fonction qui permet de compter pour récuperer des ID unique.
@@ -72,7 +74,7 @@ class Game {
 
             $extensionUpload = strtolower(substr(strrchr($img_name, '.'), 1));
 
-            if($img['size'] <= $size) {
+            if($img['size'][$i] <= $size) {
 
                 if(in_array($extensionUpload, $extensionsValides)) {
 
@@ -83,11 +85,14 @@ class Game {
                         $string .= $this->counter . '.' . $extensionUpload . "@";
                     }
 
+                } else {
+                    $this->error = 'une image est n\'a pas la bonne extension (jpg, gif, jpeg, png).';
+                    break;
                 }
             } else {
-                echo 'une image est trop lourde.';
+                
+                $this->error = 'une image est trop lourde.';
                 break;
-                return;
             }
         }
         $this->game_imgs = $string;
@@ -101,20 +106,38 @@ class Game {
      */
     public function add_file(array $file) {
 
+        if($this->error !== "") {
+            return;
+        }
+
         $extensionsValides = ["zip"];
         $extensionUpload = strtolower(substr(strrchr($file['name'], '.'), 1));
 
         if(in_array($extensionUpload, $extensionsValides)) {
             $path = ROOT . 'storage/zip_game/' . $this->counter . '.' . $extensionUpload;
             if(move_uploaded_file($file['tmp_name'],$path))  {
-                echo "success file save";
+                
                 $this->game_file = $this->counter . '.' . $extensionUpload;
             }
         } else {
-            echo "Votre fichier doit etre un fichier zip.";
-            return;
+            $this->error = "Votre fichier doit etre un fichier zip.";
         }
 
+    }
+
+    /**
+     * Ajout une url d'une vidéo
+     *
+     * @param string $url
+     * @return void
+     */
+    public function add_video(string $url) {
+        if (filter_var($url, FILTER_VALIDATE_URL) !== false) {
+            $this->game_yt = $url;
+        } else {
+            $this->error = "URL non valide";
+            
+        }
     }
 
     /**
@@ -127,8 +150,7 @@ class Game {
         if(is_numeric($version)) {
             $this->game_v = $version;
         } else {
-            echo "La version doit être un chiffre";
-            return;
+            $this->error = "La version doit être un chiffre";
         }
     }
 
@@ -158,6 +180,14 @@ class Game {
 
     }
 
+    /**
+     * Edite un ancien jeux
+     *
+     * @param integer $id
+     * @param array $new_file
+     * @param string $new_description
+     * @return void
+     */
     public function edit_game(int $id, array $new_file, string $new_description) {
         $bdd = new DBConnexion(DB_NAME);
 

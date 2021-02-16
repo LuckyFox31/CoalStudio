@@ -37,11 +37,6 @@ class FormControlleur {
         }
     }
 
-    public function file_img($img) {
-        $ext = ["jpg", "png", "jpeg"];
-        
-    }
-
     /**
      * password function
      *

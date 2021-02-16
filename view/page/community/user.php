@@ -10,9 +10,6 @@ $game = new Game;
 
 $cookie_content = $_COOKIE['coalstudio'];
 
-$lu = $bdd->getPdo()->query("SELECT * FROM user ORDER BY id DESC");
-$l_g = $bdd->getPdo()->query("SELECT * FROM game ORDER BY id DESC");
-
 $userExist = $bdd->getPdo()->prepare("SELECT * FROM user WHERE token = ?");
 $userExist->execute([$cookie_content]);
 
@@ -38,69 +35,59 @@ include ROOT . "view/page/php/user.game_delete_edit.php";
 ?>
 <!-- 
     HTML Front
--->
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum dolores quam nostrum eos qui ipsam commodi dolorum consequuntur. Nam deserunt omnis, fugit tempora minima illo? Obcaecati quibusdam temporibus laborum fugit ipsam laudantium non at. Reiciendis eveniet amet distinctio adipisci quibusdam nemo nobis similique nulla voluptas accusantium minima, quis consequuntur impedit!</p>
 
-<hr />
 
-<!-- 
-    HTML Form (method="POST"/enctype="multipart/form-data")
+    HTML Form (method="POST" / enctype="multipart/form-data")
 
     input text(pseudo) = name : name
     input text(description) = name : description
     input file(img)(multiple) = name : img_file[] // exemple : <input type="file" name="img_file[]" multiple>
     input checkbox(mature) = name : mature
     input file(file game) = name : zip_file
-    imput number(version) = name : version
+    imput number(version)(step=0.01) = name : version
     input text(credit) = name : credit
+    input url(video yt) = name : video
+
     input submit = name : valid_game_add
 
- -->
+<form method="POST" enctype="multipart/form-data">
+    <label>Votre name 
+        <input type="text" name="name" >
+    </label>
+
+    <label>Votre description 
+        <input type="text" name="description">
+    </label>
+
+    <label>Votre img_file[] 
+        <input type="file" name="img_file[]" multiple>
+    </label>
+
+    <label>Votre mature
+        <input type="checkbox" name="mature">
+    </label>
+
+    <label>Votre zip_file 
+        <input type="file" name="zip_file">
+    </label>
+
+    <label>Votre version
+        <input type="number" name="version">
+    </label>
+
+    <label>Votre credit
+        <input type="text" name="credit">
+    </label>
+
+    <label>Votre yt
+        <input type="url" name="video">
+    </label>
+
+    <button type="submit" name="valid_game_add"> test</button>
+</form> -->
+
 
 <?php
-if($user_info['admin'] == 1) {
-
-    /**
-     * HTML Form nouveau user.
-     * 
-     * input text = name :user_created
-     * input submit = name : valid_created_user
-     */
-
-
-    /**
-     * HTML Form Suppr un joueur.
-     * 
-     * select = name : select_delete_user
-     * input submit = name : valid_delete_user
-     */
-
-    /**
-     * Code exemple
-     */     
-    while($du = $lu->fetch()) {
-        echo '<option value="' . $du['id'] .'">' . $du['pseudo'] .'</option>';
-    }
-
-}
+// liste un jeux | user : 
+include ROOT . "view/page/php/user.list_game_user.php";
 ?>
-<hr />
-
-<div>
-    <?php
-
-    /**
-     * Html Form Edit/Suppr Game
-     * input submit = name : delete_game 
-     * 
-     * input file = name : new_file_game
-     * input text = name : new_desc
-     * input submit = name : modif_game
-     */
-    while($view_ = $l_g->fetch()) {
-
-        // Card Game.
-        
-    }
-    ?>
-</div>

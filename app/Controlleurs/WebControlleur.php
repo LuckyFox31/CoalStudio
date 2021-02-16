@@ -2,9 +2,6 @@
 
 namespace App\Controlleurs;
 
-/**
- * WebControlleur class
- */
 class WebControlleur {
 
     /**
@@ -18,7 +15,7 @@ class WebControlleur {
 
         if($_GET['url'] != "/") {
             if($redirection == "/") {
-                $header = substr("http://" . $chemain, 0, -1);
+                $header = substr(HTTP . $chemain, 0, -1);
                 header("Location: " . $header);
             }
         }
@@ -32,7 +29,7 @@ class WebControlleur {
      */
     public function index() {
 
-        return include ROOT . 'view/php/index.php';
+        return include ROOT . 'view/index/index.php';
     }
 
     /**
@@ -43,7 +40,7 @@ class WebControlleur {
     public function games() {
 
         $this->redirect();
-        return include ROOT . 'view/php/games.php';
+        return include ROOT . 'view/index/games.php';
     }
 
     /**

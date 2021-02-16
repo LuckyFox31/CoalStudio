@@ -1,6 +1,7 @@
 <?php
 define('ROOT', dirname(__DIR__) . '\\');
 define('DB_NAME', 'coalstudio');
+define('HTTP', 'http://');
 
 use Router\Router;
 use App\Autoloader;
