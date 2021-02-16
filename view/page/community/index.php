@@ -1,37 +1,65 @@
 <?php
 // USE
-use App\Panel\Community\Sigin;
-use App\Database\Table;
+
+use App\Controlleurs\FormControlleur;
+use App\Database\DBConnexion;
 use App\Panel\Community\Cookie;
 
 // INSTANCE
-$sigin = new Sigin();
-$table = new Table("coalstudio");
 $cookie = new Cookie("coalstudio");
+$form = new FormControlleur;
+$bdd = new DBConnexion(DB_NAME);
 
 // Verification des identifiant de l'user.
-if(isset($_POST['pseudo']) AND isset($_POST['password']) AND !empty($_POST['pseudo']) AND !empty($_POST['password'])) {
-    
-    // Traitement du contenue du Formulaire par des functions.
-    $pseudo = $sigin->charset($_POST['pseudo']);
-    $password = $sigin->pass($_POST['password']);
+if(isset($_POST['submit_sigin'])) {
+    if(isset($_POST['pseudo']) AND isset($_POST['password']) AND !empty($_POST['pseudo']) AND !empty($_POST['password'])) {
+        
+        // Traitement du contenue du Formulaire par des functions.
+        $pseudo = $form->pseudo($_POST['pseudo']);
 
-    // Verif de l'existance de l'user
-    $fetchUser = $table->query("user", "pseudo", $pseudo);
-    if($fetchUser == 1) {
+        // Cherche mail dans BDD
+        $pseudoExist = $bdd->getPdo()->prepare("SELECT * FROM user WHERE pseudo = ?");
+        $pseudoExist->execute([$pseudo]);
 
-        // Création d'un cookie.
-        $cookie->getCookie('test', time()+3600*24*365);
-        header("Location: ");
-    } else {
+        // Verification de si il n'y a aucun message d'erreur
+        if($form->error == "Aucunne erreur.") {
 
-        echo "Non";
+            // Verifier si l'email existe bien
+            if($pseudoExist->rowCount()) {
+           
+                // Chercher le mot de passe assosier.
+                $pass_verified = $pseudoExist->fetch();
+                
+                // Comparaison des mdp
+                if(password_verify($_POST['password'], $pass_verified['pass'])) {
+
+                    
+
+                    // Création d'un cookie.
+                    $cookie->getCookie($pass_verified['token'], time()+3600*24*365);
+                    header("Location: ");
+                } else {
+                    echo "ID non valid";
+                }
+            } else {
+                echo "ID non valid";
+            }
+            
+            
+        } else {
+
+            echo $form->error;
+            
+        }
+
+        
     }
 }
 ?>
 
 <!-- 
     HTML | CSS | JS
+    exemple From : 
 -->
 <!DOCTYPE html>
 <html lang="fr">
@@ -39,7 +67,7 @@ if(isset($_POST['pseudo']) AND isset($_POST['password']) AND !empty($_POST['pseu
     <title>Community</title>
 </head>
 <body>
-    <form method="post" action="">
+    <form method="post">
         <label>Votre pseudo : 
             <input type="text" name="pseudo" id="pseudo" placeholder="Votre pseudo" >
         </label>

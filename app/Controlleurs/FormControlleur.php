@@ -15,22 +15,39 @@ class FormControlleur {
      * @return string $user_name 
      */
     public function pseudo(string $pseudo) {
-        $user_name = substr(htmlspecialchars($pseudo), 255);
+        $user_name = substr(htmlspecialchars($pseudo), 0, 255);
 
         return $user_name;
     }
 
+    /**
+     * mail function
+     *
+     * @param string $mail
+     * @return void
+     */
     public function mail($mail) {
         $mail_replace = htmlspecialchars(str_replace(" ", "", $mail));
 
         if(filter_var($mail_replace, FILTER_VALIDATE_EMAIL)) {
             $this->mail = $mail_replace;
-            return true;
+            return $this->mail;
         } else {
             return $this->error = "Vos ID ne sont pas correcte.";
         }
     }
 
+    public function file_img($img) {
+        $ext = ["jpg", "png", "jpeg"];
+        
+    }
+
+    /**
+     * password function
+     *
+     * @param string $password
+     * @return void
+     */
     public function password($password) {
         $pass = htmlspecialchars($password);
 
@@ -46,7 +63,7 @@ class FormControlleur {
             return true;
         }
 
-        return $this->error = "Vos ID ne sont pas correcte.";
+        return false;
     }
 
 }

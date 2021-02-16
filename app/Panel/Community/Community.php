@@ -18,8 +18,8 @@ class Community {
      *
      * @param string $name
      * @param string $desc
-     * @param array $img
-     * @param string $video
+     * @param string $img
+     * @param url $video
      * @param string $mature
      * @param string $game_file
      * @param int $version
@@ -32,9 +32,11 @@ class Community {
         $name_game = $form->pseudo($name);
         $desc_game = htmlspecialchars($desc);
 
-        foreach($img as $i) {
-            echo $i;
-        }
+        $img_game = str_replace(",", ".", $img);
+
+        // foreach($img as $i) {
+        //     echo $i;
+        // }
     }
 
     /**
@@ -64,19 +66,20 @@ class Community {
      * @param string $pass
      * @return void
      */
-    public function create_user($pseudo, $mail, $pass) {
+    public function create_user($pseudo) {
 
         $form = new FormControlleur;
         $bdd = new DBConnexion(DB_NAME);
 
         $user_pseudo = $form->pseudo($pseudo);
-        $user_mail = $form->mail($mail);
-        $user_pass = $form->password($pass);
+        $user_pass = uniqid(substr($user_pseudo, 0, 1) . "_");
+        $user_pass_hash = $form->password($user_pass);
+        $user_token = sha1($user_pass);
 
-        $insert = $bdd->getPdo()->prepare("INSERT INTO user(pseudo, mail, pass, created_at) VALUE(?, ?, ?, NOW())");
-        $insert->execute([$user_pseudo, $user_mail, $user_pass]);
+        $insert = $bdd->getPdo()->prepare("INSERT INTO user(pseudo, pass, admin, token, created_at) VALUE(?, ?, 1, ?, NOW())");
+        $insert->execute([$user_pseudo, $user_pass_hash, $user_token]);
 
-        echo "User Enregistrais !";
+        echo "User Enregistrais ! \n mot de passe : $user_pass ";
 
     }
 
@@ -100,13 +103,10 @@ class Community {
      *
      * @return void
      */
-    public function list_user() {
-        $bdd = new DBConnexion(DB_NAME);
+    // public function list_user() {
+    //     $bdd = new DBConnexion(DB_NAME);
 
-        $user_list = $bdd->getPdo()->prepare("SELECT * FROM user");
-        $user_list->execute();
-        $result = $user_list->fetchAll();
+    //     return $query = $bdd->getPdo()->query("SELECT * FROM user ORDER BY id DESC");
 
-        return $result;
-    }
+    // }
 }

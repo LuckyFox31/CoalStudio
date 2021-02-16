@@ -27,6 +27,6 @@ class DBConnexion {
             $this->pdo = $pdo;
         }
             
-        return $pdo;
+        return $this->pdo;
     }
 }

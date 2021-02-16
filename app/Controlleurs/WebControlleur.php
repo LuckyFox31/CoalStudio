@@ -32,7 +32,6 @@ class WebControlleur {
      */
     public function index() {
 
-        $this->redirect();
         return include ROOT . 'view/php/index.php';
     }
 
