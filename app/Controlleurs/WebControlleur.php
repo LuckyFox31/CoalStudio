@@ -29,11 +29,7 @@ class WebControlleur {
      */
     public function index() {
 
-<<<<<<< Updated upstream
-        return include ROOT . 'view/index/index.php';
-=======
         return include ROOT . 'view/page/index/index.php';
->>>>>>> Stashed changes
     }
 
     /**
@@ -44,11 +40,7 @@ class WebControlleur {
     public function games() {
 
         $this->redirect();
-<<<<<<< Updated upstream
-        return include ROOT . 'view/index/games.php';
-=======
         return include ROOT . 'view/page/index/games.php';
->>>>>>> Stashed changes
     }
 
     /**
