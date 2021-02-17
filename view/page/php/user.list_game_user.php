@@ -21,9 +21,15 @@ if($user_info['admin'] == 1) {
 
     /**
      * Code exemple
+<<<<<<< Updated upstream
      */     
     while($du = $lu->fetch()) {
         echo '<option value="' . $du['id'] .'">' . $du['pseudo'] .'</option>';
+=======
+     */
+    while($du = $lu->fetch()) {
+        // echo '<option value="' . $du['id'] .'">' . $du['pseudo'] .'</option>';
+>>>>>>> Stashed changes
     }
 
 }
