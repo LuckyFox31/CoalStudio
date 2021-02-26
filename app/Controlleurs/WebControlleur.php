@@ -61,7 +61,6 @@ class WebControlleur {
 
             return include ROOT . 'view/page/community/index.php';
         }
-
        
     }
     

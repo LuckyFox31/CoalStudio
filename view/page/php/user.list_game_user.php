@@ -1,4 +1,9 @@
 <?php
+
+use App\Database\DBConnexion;
+
+$bdd = new DBConnexion(DB_NAME);
+
 $lu = $bdd->getPdo()->query("SELECT * FROM user ORDER BY id DESC");
 $l_g = $bdd->getPdo()->query("SELECT * FROM game ORDER BY id DESC");
 

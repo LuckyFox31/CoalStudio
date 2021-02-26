@@ -11,3 +11,12 @@ if( $user_info['admin'] == 1) {
     }
 
 }
+
+echo '
+
+    <form method="POST">
+        <input type="text" name="user_created" >
+        <input type="submit" name="valid_created_user" >
+    </form>
+
+';

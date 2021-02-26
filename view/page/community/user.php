@@ -1,25 +1,28 @@
 <?php
 
-use App\Database\DBConnexion;
-use App\Panel\Community\Community;
-use App\Panel\Community\Game;
+use App\Database\Table;
+use App\Domain\User\User;
+use App\Domain\Game\Game;
+use App\Domain\Game\GameComment;
+use App\Domain\Game\GameDisplay;
 
-$community = new Community('test');
-$bdd = new DBConnexion(DB_NAME);
+$table = new Table(DB_NAME);
 $game = new Game;
 
 $cookie_content = $_COOKIE['coalstudio'];
 
-$userExist = $bdd->getPdo()->prepare("SELECT * FROM user WHERE token = ?");
-$userExist->execute([$cookie_content]);
+$table->getTable(USER_TABLE);
+
+$userExist = $table->real('*', 'token = ?', [$cookie_content]);
 
 // Verification de Token
-if($userExist->rowCount()) {
+if($userExist) {
 
-    $user_info = $userExist->fetch();
+    $user_info = $table->info;
+    $community = new User;
 
 } else {
-    echo "Une erreur c'est produite...";
+    echo "Une erreur c'est produite... <a href=\"\">Retour a l'accueil</a> ";
     setCookie('coalstudio', "", time());
     return;
 }
@@ -49,45 +52,24 @@ include ROOT . "view/page/php/user.game_delete_edit.php";
     input url(video yt) = name : video
 
     input submit = name : valid_game_add
-
-<form method="POST" enctype="multipart/form-data">
-    <label>Votre name 
-        <input type="text" name="name" >
-    </label>
-
-    <label>Votre description 
-        <input type="text" name="description">
-    </label>
-
-    <label>Votre img_file[] 
-        <input type="file" name="img_file[]" multiple>
-    </label>
-
-    <label>Votre mature
-        <input type="checkbox" name="mature">
-    </label>
-
-    <label>Votre zip_file 
-        <input type="file" name="zip_file">
-    </label>
-
-    <label>Votre version
-        <input type="number" name="version">
-    </label>
-
-    <label>Votre credit
-        <input type="text" name="credit">
-    </label>
-
-    <label>Votre yt
-        <input type="url" name="video">
-    </label>
-
-    <button type="submit" name="valid_game_add"> test</button>
-</form> -->
+-->
+<?php 
+include ROOT . "view/template/form.html";
 
 
-<?php
 // liste un jeux | user : 
 include ROOT . "view/page/php/user.list_game_user.php";
+
+// Exemple
+$table->getTable(GAME_TABLE);
+
+
+$t = $table->look_for_all('*');
+
+// foreach ($t as $k => $v) {
+//     var_dump($v);
+//     echo $v['game_name'];
+// }
+
+$a = $table->look_for('*', 'id = ?', [2]);
 ?>

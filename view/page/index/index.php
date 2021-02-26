@@ -1,19 +1,12 @@
-<head>
-
-    <!-- META -->
-    <?= meta(); ?>
-
-    <!-- SCRIPT -->
-    <?= script(); ?>
-
-    <!-- ICON -->
-    <?= icon(); ?>
-
-    <title>CoalStudio - Jeux Vidéos</title>
-    <link rel="stylesheet" href="public/assets/style/css/index.css">
-</head>
 <?php
 
-navbar();
+use App\Controlleurs\HVFPControlleur;
 
-include ROOT . 'view/html/index.html';
+$hvfp = new HVFPControlleur;
+
+$html_file = file_get_contents(ROOT . 'view/html/index/index.html');
+
+$html_file = $hvfp->parser($html_file, '{active}', 'active');
+$html_file = $hvfp->parser($html_file, '{games}', 'games');
+
+echo $html_file;

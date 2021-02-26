@@ -4,7 +4,7 @@ namespace App\Controlleurs;
 
 class FormControlleur {
 
-    public $error = "Aucunne erreur.";
+    public $error = "";
     public $mail;
     public $password;
 

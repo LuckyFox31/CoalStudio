@@ -3,12 +3,14 @@
 
 use App\Controlleurs\FormControlleur;
 use App\Database\DBConnexion;
-use App\Panel\Community\Cookie;
+use App\Database\Table;
 
 // INSTANCE
-$cookie = new Cookie("coalstudio");
 $form = new FormControlleur;
 $bdd = new DBConnexion(DB_NAME);
+$table = new Table(DB_NAME);
+
+$table->getTable(USER_TABLE);
 
 // Verification des identifiant de l'user.
 if(isset($_POST['submit_sigin'])) {
@@ -17,18 +19,17 @@ if(isset($_POST['submit_sigin'])) {
         // Traitement du contenue du Formulaire par des functions.
         $pseudo = $form->pseudo($_POST['pseudo']);
 
-        // Cherche mail dans BDD
-        $pseudoExist = $bdd->getPdo()->prepare("SELECT * FROM user WHERE pseudo = ?");
-        $pseudoExist->execute([$pseudo]);
+        // Cherche pseudo dans BDD
+        $pseudoExist = $table->real('*', 'pseudo = ?', [$pseudo]);
 
         // Verification de si il n'y a aucun message d'erreur
-        if($form->error == "Aucunne erreur.") {
+        if($form->error == "") {
 
-            // Verifier si l'email existe bien
-            if($pseudoExist->rowCount()) {
+            // Verifier si le pseudo existe bien
+            if($pseudoExist) {
            
                 // Chercher le mot de passe assosier.
-                $pass_verified = $pseudoExist->fetch();
+                $pass_verified = $table->info;
                 
                 // Comparaison des mdp
                 if(password_verify($_POST['password'], $pass_verified['pass'])) {
@@ -36,7 +37,7 @@ if(isset($_POST['submit_sigin'])) {
                     
 
                     // Création d'un cookie.
-                    $cookie->getCookie($pass_verified['token'], time()+3600*24*365);
+                    setcookie("coalstudio", $pass_verified['token'], time()+3600*24*365);
                     header("Location: ");
                 } else {
                     echo "ID non valid";

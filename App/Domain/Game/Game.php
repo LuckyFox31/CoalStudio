@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Panel\Community;
-
-use App\Database\DBConnexion;
+namespace App\Domain\Game;
 
 class Game {
 
@@ -22,7 +20,7 @@ class Game {
      *
      * @return void
      */
-    private function counter() {
+    protected function counter() {
         $counter_file = fopen(ROOT . 'storage/compteur.txt', "r+");
         $counter = fgets($counter_file);
         $counter++;
@@ -162,46 +160,6 @@ class Game {
      */
     public function add_credits(string $credits) {
         $this->game_credits = htmlspecialchars($credits);
-    }
-
-    public function delete_game(int $id) {
-        $bdd = new DBConnexion(DB_NAME);
-        $fetch_game = $bdd->getPdo()->prepare("SELECT imgs, game_file FROM game WHERE id = ?");
-        $fetch_game->execute([$id]);
-        $info_game = $fetch_game->fetch();
-
-        $_imgs = explode("@", $info_game['imgs']);
-        for($i = 0; $i < $_imgs; $i++) {
-            @unlink(ROOT . 'storage/img/' . $_imgs[$i]);
-        }
-
-        $delete = $bdd->getPdo()->prepare("DELETE FROM game WHERE id = ?");
-        $delete->execute([$id]);
-
-    }
-
-    /**
-     * Edite un ancien jeux
-     *
-     * @param integer $id
-     * @param array $new_file
-     * @param string $new_description
-     * @return void
-     */
-    public function edit_game(int $id, array $new_file, string $new_description) {
-        $bdd = new DBConnexion(DB_NAME);
-
-        $this->counter();
-        $this->add_file($new_file);
-
-        if($new_description === null) {
-            $new = $bdd->getPdo()->prepare("UPDATE game SET game_file = ? WHERE id = ?");
-            $new->execute([$this->game_file, $id]);
-        } else {
-            $new = $bdd->getPdo()->prepare("UPDATE game SET game_file = ?, game_description = ? WHERE id = ?");
-            $new->execute([$this->game_file, htmlspecialchars($new_description), $id]);
-        }
-
     }
 
 }

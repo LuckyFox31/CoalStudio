@@ -1,6 +1,12 @@
 <?php
 define('ROOT', dirname(__DIR__) . '\\');
+
 define('DB_NAME', 'coalstudio');
+
+define('USER_TABLE', 'user');
+define('GAME_TABLE', 'game');
+define('COMMENT_TABLE', 'comment');
+
 define('HTTP', 'http://');
 
 use Router\Router;
