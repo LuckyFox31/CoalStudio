@@ -72,4 +72,7 @@ $t = $table->look_for_all('*');
 // }
 
 $a = $table->look_for('*', 'id = ?', [2]);
+
+$z = new GameComment;
+echo $z->treat('*Test*');
 ?>
