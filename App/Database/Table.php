@@ -71,8 +71,30 @@ class Table extends DBConnexion {
         return $fetch->fetchAll();
     }
 
+    /**
+     * Fonction pour supprimer des objets dans une table.
+     *
+     * @param string $where
+     * @param array $exec
+     * @return bool
+     */
     public function delete(string $where, array $exec) {
         $delete = $this->getPdo()->prepare("DELETE FROM $this->table WHERE $where");
         return $delete->execute($exec);
+    }
+
+    /**
+     * Fonction pour editer des objets dans une table
+     *
+     * @param string $set
+     * @param string $where
+     * @param array $exec
+     * @return void
+     */
+    public function edit(string $set, string $where, array $exec) {
+
+        $update = $this->getPdo()->prepare("UPDATE $this->table SET $set WHERE $where");
+        return $update->execute($exec);
+
     }
 }

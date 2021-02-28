@@ -1,5 +1,10 @@
 <?php
+
+use App\Database\DBConnexion;
+
 if(isset($_POST['valid_game_add'])) {
+
+    $bdd = new DBConnexion(DB_NAME);
 
     $game_mature = 0;
 

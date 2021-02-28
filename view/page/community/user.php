@@ -3,11 +3,11 @@
 use App\Database\Table;
 use App\Domain\User\User;
 use App\Domain\Game\Game;
-use App\Domain\Game\GameComment;
-use App\Domain\Game\GameDisplay;
+use App\Domain\Game\GameControllers;
 
 $table = new Table(DB_NAME);
 $game = new Game;
+$gameC = new GameControllers;
 
 $cookie_content = $_COOKIE['coalstudio'];
 
@@ -60,19 +60,18 @@ include ROOT . "view/template/form.html";
 // liste un jeux | user : 
 include ROOT . "view/page/php/user.list_game_user.php";
 
-// Exemple
+// Exemple //
 $table->getTable(GAME_TABLE);
 
 
-$t = $table->look_for_all('*');
+// $t = $table->look_for_all('*');
 
 // foreach ($t as $k => $v) {
 //     var_dump($v);
 //     echo $v['game_name'];
 // }
 
-$a = $table->look_for('*', 'id = ?', [2]);
+// $a = $table->look_for('*', 'id = ?', [2]);
 
-$z = new GameComment;
-echo $z->treat('*Test*');
+
 ?>

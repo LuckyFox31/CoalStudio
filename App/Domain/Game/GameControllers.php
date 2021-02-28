@@ -14,9 +14,23 @@ class GameControllers extends Game {
         $fetch_game->execute([$id]);
         $info_game = $fetch_game->fetch();
 
+        if(file_exists(ROOT . 'storage/zip_game/' . $info_game['game_file'])) {
+            if($info_game['game_file'] != '') {
+                unlink(ROOT . 'storage/zip_game/' . $info_game['game_file']);
+            }
+        }
+
         $_imgs = explode("@", $info_game['imgs']);
-        for($i = 0; $i < $_imgs; $i++) {
-            @unlink(ROOT . 'storage/img/' . $_imgs[$i]);
+        for($i = 0; $i < count($_imgs); $i++) {
+
+            if($_imgs[$i] != '') {
+                var_dump($_imgs[$i]);
+                if(file_exists(ROOT . 'storage/img/' . $_imgs[$i])) {
+                    unlink(ROOT . 'storage/img/' . $_imgs[$i]);
+                }
+
+            }
+            
         }
 
         $delete = $bdd->getPdo()->prepare("DELETE FROM " . GAME_TABLE ." WHERE id = ?");

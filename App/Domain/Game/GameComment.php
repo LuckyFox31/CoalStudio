@@ -31,4 +31,11 @@ class GameComment {
         return $comment;
     }
 
+    public function edit_comment(int $comment_id) {
+        $table = new Table(DB_NAME);
+        $table->getTable(COMMENT_TABLE);
+
+        $table->edit('comment = ?', 'id = ?', [$comment_id]);
+    }
+
 }
