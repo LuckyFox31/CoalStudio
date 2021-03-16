@@ -26,7 +26,7 @@ class FormControlleur {
      * @param string $mail
      * @return void
      */
-    public function mail($mail) {
+    public function mail(string $mail) {
         $mail_replace = htmlspecialchars(str_replace(" ", "", $mail));
 
         if(filter_var($mail_replace, FILTER_VALIDATE_EMAIL)) {
@@ -43,7 +43,7 @@ class FormControlleur {
      * @param string $password
      * @return void
      */
-    public function password($password) {
+    public function password(string $password) {
         $pass = htmlspecialchars($password);
 
         $password_hash = password_hash($pass,  PASSWORD_BCRYPT);
@@ -51,7 +51,14 @@ class FormControlleur {
         return $this->password = $password_hash;
     }
 
-    public function verif_password($password, $pass_fetch) {
+    /**
+     * verif password function
+     *
+     * @param string $password
+     * @param string $pass_fetch
+     * @return void
+     */
+    public function verif_password(string $password, string $pass_fetch) {
         $pass = htmlspecialchars($password);
 
         if(password_verify($pass, $pass_fetch)) {

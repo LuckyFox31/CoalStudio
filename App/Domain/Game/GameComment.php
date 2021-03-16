@@ -3,16 +3,8 @@
 namespace App\Domain\Game;
 
 use App\Database\Table;
-use libs\Michelf\Markdown;
 
 class GameComment {
-
-    public function treat(string $message) {
-
-        $html = Markdown::defaultTransform($message);
-        return $html;
-
-    }
 
     public function add_comment(int $user_id, string $message, int $game_id) {
         $table = new Table(DB_NAME);

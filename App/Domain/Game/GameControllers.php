@@ -2,17 +2,15 @@
 
 namespace App\Domain\Game;
 
-use App\Database\DBConnexion;
 use App\Database\Table;
 
 class GameControllers extends Game {
 
     public function delete_game(int $id) {
-        $bdd = new DBConnexion(DB_NAME);
+        $table = new Table(DB_NAME);
+        $table->getTable(GAME_TABLE);
 
-        $fetch_game = $bdd->getPdo()->prepare("SELECT imgs, game_file FROM " . GAME_TABLE ." WHERE id = ?");
-        $fetch_game->execute([$id]);
-        $info_game = $fetch_game->fetch();
+        $info_game = $table->look_for('imgs, game_file', 'id = ?', [$id]);
 
         if(file_exists(ROOT . 'storage/zip_game/' . $info_game['game_file'])) {
             if($info_game['game_file'] != '') {
@@ -33,8 +31,7 @@ class GameControllers extends Game {
             
         }
 
-        $delete = $bdd->getPdo()->prepare("DELETE FROM " . GAME_TABLE ." WHERE id = ?");
-        $delete->execute([$id]);
+        $table->delete('id = ?', [$id]);
 
     }
 
@@ -47,17 +44,16 @@ class GameControllers extends Game {
      * @return void
      */
     public function edit_game(int $id, array $new_file, string $new_description) {
-        $bdd = new DBConnexion(DB_NAME);
+        $table = new Table(DB_NAME);
+        $table->getTable(GAME_TABLE);
 
         $this->counter();
         $this->add_file($new_file);
 
         if($new_description === null) {
-            $new = $bdd->getPdo()->prepare("UPDATE " . GAME_TABLE ." SET game_file = ? WHERE id = ?");
-            $new->execute([$this->game_file, $id]);
+            $table->edit('game_file = ?', 'id = ?', [$this->game_file, $id]);
         } else {
-            $new = $bdd->getPdo()->prepare("UPDATE " . GAME_TABLE ." SET game_file = ?, game_description = ? WHERE id = ?");
-            $new->execute([$this->game_file, htmlspecialchars($new_description), $id]);
+            $table->edit('game_file = ?, game_description = ?', 'id = ?', [$this->game_file, htmlspecialchars($new_description), $id]);
         }
 
     }
