@@ -18,6 +18,13 @@ class GameDisplay {
         "{created_at}"
     ];
 
+    /**
+     * Function pour afficher dans une fichier .html le contenue d'un jeux.
+     *
+     * @param string $template
+     * @param int $game_id
+     * @return void
+     */
     public function display(string $template, int $game_id) {
         $table = new Table(DB_NAME);
         $table->getTable('game');

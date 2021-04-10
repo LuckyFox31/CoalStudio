@@ -12,13 +12,26 @@ class DBConnexion {
     private $db_host;
     protected $pdo;
 
-    public function __construct($db_name, $db_user = "root", $db_pass = "", $db_host = "localhost") {
+    /**
+     * __construct function
+     *
+     * @param string $db_name
+     * @param string $db_user
+     * @param string $db_pass
+     * @param string $db_host
+     */
+    public function __construct(string $db_name, $db_user = "root", $db_pass = "", $db_host = "localhost") {
         $this->db_name = $db_name;
         $this->db_user = $db_user;
         $this->db_pass = $db_pass;
         $this->db_host = $db_host;
     }
 
+    /**
+     * function pour générer une connexion a la BDD
+     *
+     * @return $this->pdo
+     */
     public function getPdo()
     {
         if($this->pdo === null) {

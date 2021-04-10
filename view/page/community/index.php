@@ -49,6 +49,7 @@ if(isset($_POST['submit_sigin'])) {
             
         } else {
 
+            // Affichage erreur.
             echo $form->error;
             
         }

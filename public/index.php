@@ -1,21 +1,14 @@
 <?php
 define('ROOT', dirname(__DIR__) . '\\');
 
-define('DB_NAME', 'coalstudio');
-
-define('USER_TABLE', 'user');
-define('GAME_TABLE', 'game');
-define('COMMENT_TABLE', 'comment');
-
-define('HTTP', 'http://');
+include ROOT . 'public/config.php';
 
 use Router\Router;
 use App\Autoloader;
 
 include ROOT . 'view/layout/layout.php';
 
-include ROOT . 'app/Autoloader.php';
-Autoloader::register();
+include ROOT . 'vendor/autoload.php';
 
 $router = new Router($_GET['url']);
 

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Game;
 
-class Game {
+class GameAdd {
 
     public $game_name;
     public $game_desc;
